@@ -4,7 +4,7 @@ from groq import Groq
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 API_KEY = os.getenv("GROQ_API_KEY")  # Use environment variable
 client = Groq(api_key=API_KEY)
@@ -27,4 +27,5 @@ def summarize():
     )
 
     summary = chat_completion.choices[0].message.content
+
     return jsonify({"summary": summary})
