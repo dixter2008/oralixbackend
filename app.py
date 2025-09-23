@@ -3,7 +3,7 @@ from flask_cors import CORS
 from groq import Groq
 import os
 
-app = Flask(_name_)
+app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 API_KEY = os.getenv("GROQ_API_KEY")  # Environment variable
@@ -28,3 +28,4 @@ def summarize():
 
     summary = chat_completion.choices[0].message.content
     return jsonify({"summary": summary})
+
