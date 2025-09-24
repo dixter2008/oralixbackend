@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-API_KEY = os.getenv("GROQ_API_KEY")  # Use environment variable
+API_KEY = os.getenv("GROQ_API_KEY")  # Environment variable
 client = Groq(api_key=API_KEY)
 
 @app.route("/")
@@ -20,15 +20,11 @@ def summarize():
 
     chat_completion = client.chat.completions.create(
         messages=[
-            {"role": "system", "content": "You are a lesson summarizer, do not use asterisk."},
+            {"role": "system", "content": "You are a lesson summarizer,do not add asterisks, act like a human teacher, giving the student a reviewer."},
             {"role": "user", "content": "summarize the following: " + user_input}
         ],
         model="llama-3.3-70b-versatile"
     )
 
     summary = chat_completion.choices[0].message.content
-
     return jsonify({"summary": summary})
-
-
-
